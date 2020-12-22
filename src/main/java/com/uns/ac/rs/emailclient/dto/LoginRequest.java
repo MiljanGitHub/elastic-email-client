@@ -7,8 +7,7 @@ import lombok.Setter;
 @Data
 @Setter
 @NoArgsConstructor
-public class LoginResponse {
+public class LoginRequest {
 	
-	private int userId;
-	private StringResponse stringResponse;
+	private String username, password;
 }

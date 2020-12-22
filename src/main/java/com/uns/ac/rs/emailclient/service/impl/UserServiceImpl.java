@@ -2,12 +2,13 @@ package com.uns.ac.rs.emailclient.service.impl;
 
 import javax.inject.Inject;
 
-import org.hibernate.service.spi.InjectService;
+import org.springframework.stereotype.Service;
 
 import com.uns.ac.rs.emailclient.model.User;
 import com.uns.ac.rs.emailclient.repository.UserRepository;
 import com.uns.ac.rs.emailclient.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService{
 	
 	private UserRepository repository;
@@ -19,26 +20,24 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User save(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(user);
 	}
 
 	@Override
-	public User delete(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User deleteById(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(User user) {
+		repository.delete(user);
 	}
 
 	@Override
 	public User getById(int userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.getOne(userId);
+	}
+
+	@Override
+	public User findByUsernameAndPassword(String username, String password) {
+		// TODO Auto-generated method stub
+		return repository.findByUsernameAndPassword(username, password);
 	}
 	
 }
