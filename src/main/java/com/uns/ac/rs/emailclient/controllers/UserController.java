@@ -1,11 +1,9 @@
 package com.uns.ac.rs.emailclient.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +15,7 @@ import com.uns.ac.rs.emailclient.dto.LoginRequest;
 import com.uns.ac.rs.emailclient.dto.LoginResponse;
 import com.uns.ac.rs.emailclient.dto.SendEmailRequest;
 import com.uns.ac.rs.emailclient.dto.StringResponse;
-
-import io.swagger.annotations.ApiParam;
+import com.uns.ac.rs.emailclient.helper.MessageHelper;
 
 @RestController
 @RequestMapping("/user")
@@ -26,6 +23,8 @@ public class UserController {
 	
 	@Autowired
 	private UserControllerImpl userControllerImpl;
+	
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public LoginResponse login(LoginRequest request) {

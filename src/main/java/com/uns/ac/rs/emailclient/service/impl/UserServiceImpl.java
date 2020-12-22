@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getById(int userId) {
+	public User findById(int userId) {
 		// TODO Auto-generated method stub
 		return repository.getOne(userId);
 	}

@@ -14,8 +14,9 @@ import lombok.Setter;
 public class SendEmailRequest {
 	
 	//private List<MultipartFile> attachments;
-	private String from, cc, bcc, body;
-	private int accountId;
+	private String from, content, subject;
+	private List<String> cc, bcc, to;
+	private int userId, accountId;
 	
 	
 }

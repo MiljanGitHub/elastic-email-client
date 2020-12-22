@@ -14,11 +14,12 @@ INSERT INTO email_project.user ( firstname, lastname, username, password) VALUES
 --INSERT INTO email_project.account (active, smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, authentication, username_col, password_col, display_name, user_id) VALUES (1, 'smtp.mail.yahoo.com', 465, 1, 'imap.mail.yahoo.com', 993, 1, 's.curkovic@yahoo.com', 'cqdcxhbbfljnbtkx', 'Yahoo account', 1);
 --INSERT INTO email_project.account (active, smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, authentication, username_col, password_col, display_name, user_id) VALUES (1, 'smtp.gmail.com', 587, 1, 'imap.gmail.com', 993, 1, 'testingjavamailsend@gmail.com', 'testsend123', 'Gmail account', 1);
 --INSERT INTO email_project.account (active, smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, authentication, username_col, password_col, display_name, user_id) VALUES (1, 'smtp.uns.ac.rs', 587, 1, 'imap.uns.ac.rs', 993, 0, 'miljan.puletic@uns.ac.rs', 'futog2016', 'UNS account', 1);
---INSERT INTO email_project.account (active, smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, authentication, username_col, password_col, display_name, user_id) VALUES (1, 'smtp.gmail.com', 587, 1, 'imap.gmail.com', 993, 1, 'testingjavamailsend@gmail.com', 'testsend123', 'Gmail account', 1);
+INSERT INTO email_project.account ( smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, authentication, username, password, display_name, user_id) VALUES ('smtp.gmail.com', 587, 1, 'imap.gmail.com', 993, 1, 'testingjavamailsend@gmail.com', 'testsend123', 'Gmail account', 1);
+
 --INSERT INTO email_project.account (active, smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, authentication, username_col, password_col, display_name, user_id) VALUES (1, 'smtp.gmail.com', 587, 1, 'imap.gmail.com', 993, 1, 'marko.marictest@gmail.com', 'markotest123', 'gmail account', 1);
 
 
---INSERT INTO folders (folder_id, active, name, account_id, parent_folder_id) VALUES (1, 1, 'Inbox',  1, null);
+INSERT INTO email_project.folder (folder_id, name, account_id, parent_folder_id) VALUES (1,  'INBOX',  1, null);
 --INSERT INTO folders (folder_id, active, name, account_id, parent_folder_id) VALUES (2, 1, 'Sent',  1, null);
 --INSERT INTO folders (folder_id, active, name, account_id, parent_folder_id) VALUES (3, 1, 'Drafts', 1, null);
 --INSERT INTO folders (folder_id, active, name, account_id, parent_folder_id) VALUES (4, 1, 'Trash', 1, null);

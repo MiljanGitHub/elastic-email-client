@@ -1,5 +1,9 @@
 package com.uns.ac.rs.emailclient.model;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -47,5 +53,34 @@ public class Attachment {
 
     public Attachment(){}
 
+    
+    public static Attachment generateAttachment(MultipartFile multiPart, Message message) {
+    	
+    	InputStream inputStream;
+    	Attachment attachment = null;
+		try {
+			inputStream = multiPart.getInputStream();
+			byte[] attArray = new byte[inputStream.available()];
+			inputStream.read(attArray);
+			String base64Att = Base64.getEncoder().encodeToString(attArray);
+			String mime_type=multiPart.getContentType().split(";")[0] ;
+			String att_name=multiPart.getResource().getFilename();
+			
+		    attachment=new Attachment();
+		    attachment.setData(base64Att);
+		    attachment.setName(att_name);
+		    attachment.setMime_type(mime_type.split("/")[1]);
+		    attachment.setMessage(message);
+		  
+			
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		
+		return attachment;
+    	
+    }
+    
    
 }
