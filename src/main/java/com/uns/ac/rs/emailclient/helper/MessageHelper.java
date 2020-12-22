@@ -120,9 +120,14 @@ public class MessageHelper {
 
             helper.setFrom(newMessage.getFrom());
             if (newMessage.getTo() != null) helper.setTo(newMessage.getTo().stream().toArray(String[]::new));
+            else  helper.setTo(new String[] {});
+            
             if (newMessage.getCc() != null) helper.setCc(newMessage.getCc().stream().toArray(String[]::new));
+            else helper.setCc(new String[] {});
+            
             if (newMessage.getBcc() != null) helper.setBcc(newMessage.getBcc().stream().toArray(String[]::new));
-
+            else helper.setBcc(new String[] {});
+            
             helper.setSubject(newMessage.getSubject());
             helper.setText(newMessage.getContent());
 
@@ -145,7 +150,6 @@ public class MessageHelper {
 	 private String createMimeType(Attachment att){
 
 	       return URLConnection.guessContentTypeFromName(att.getName()+"."+att.getMime_type());
-
 	 }
 
 	

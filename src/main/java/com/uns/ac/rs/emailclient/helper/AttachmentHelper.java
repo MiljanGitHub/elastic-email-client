@@ -31,17 +31,5 @@ public class AttachmentHelper {
 		
 	}
 	
-//	InputStream inputStream = part.getInputStream();
-//    byte[] attArray = new byte[inputStream.available()];
-//    inputStream.read(attArray);
-//    String base64Att = Base64.getEncoder().encodeToString(attArray);
-//    System.out.println(base64Att);
-//    mime_type=part.getContentType().split(";")[0] ;
-//    att_name=part.getFileName();
-//    data=base64Att;
-//    Attachment attachment=new Attachment();
-//    attachment.setData(data);
-//    attachment.setName(att_name);
-//    attachment.setMime_type(mime_type.split("/")[1]);
-//    atts.add(attachment);
+
 }

@@ -15,7 +15,6 @@ import com.uns.ac.rs.emailclient.dto.LoginRequest;
 import com.uns.ac.rs.emailclient.dto.LoginResponse;
 import com.uns.ac.rs.emailclient.dto.SendEmailRequest;
 import com.uns.ac.rs.emailclient.dto.StringResponse;
-import com.uns.ac.rs.emailclient.helper.MessageHelper;
 
 @RestController
 @RequestMapping("/user")

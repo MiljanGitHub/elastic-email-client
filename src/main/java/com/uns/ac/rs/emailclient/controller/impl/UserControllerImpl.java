@@ -10,7 +10,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 import com.uns.ac.rs.emailclient.dto.LoginRequest;
 import com.uns.ac.rs.emailclient.dto.LoginResponse;
 import com.uns.ac.rs.emailclient.dto.SendEmailRequest;
@@ -102,6 +101,10 @@ public class UserControllerImpl {
 		//save to database
 		
 		//save to index Elastic repository
+		
+		response.setCode(200);
+		response.setError(false);
+		response.setMessage(messageSource.getMessage("sent.email", null, new Locale("en")));
 		
 		
 		return response;
