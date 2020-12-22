@@ -1,0 +1,13 @@
+ requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                orderId:
+                  type: integer
+                userId:
+                  type: integer
+                fileName:
+                  type: string
+                  format: binary

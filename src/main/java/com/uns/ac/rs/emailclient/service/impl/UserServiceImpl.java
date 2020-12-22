@@ -3,15 +3,17 @@ package com.uns.ac.rs.emailclient.service.impl;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.uns.ac.rs.emailclient.model.User;
 import com.uns.ac.rs.emailclient.repository.UserRepository;
 import com.uns.ac.rs.emailclient.service.UserService;
 
 @Service
+@Validated
 public class UserServiceImpl implements UserService{
 	
-	private UserRepository repository;
+	private final UserRepository repository;
 	
 	@Inject
 	public UserServiceImpl(UserRepository repository) {
