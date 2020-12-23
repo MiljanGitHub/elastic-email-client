@@ -12,7 +12,7 @@ import lombok.Setter;
 public class SendEmailRequest {
 	
 
-	private String from, content, subject;
+	private String content, subject;
 	private List<String> cc, bcc, to;
 	private int userId, accountId;
 	
