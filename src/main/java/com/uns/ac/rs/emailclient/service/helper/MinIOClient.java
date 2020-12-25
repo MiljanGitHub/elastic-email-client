@@ -1,7 +1,6 @@
 package com.uns.ac.rs.emailclient.service.helper;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
@@ -9,14 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.uns.ac.rs.emailclient.model.Attachment;
-import com.uns.ac.rs.emailclient.model.Message;
 import com.uns.ac.rs.emailclient.service.AttachmentService;
 
 import io.minio.BucketExistsArgs;
@@ -29,7 +26,6 @@ import io.minio.errors.InsufficientDataException;
 import io.minio.errors.InternalException;
 import io.minio.errors.InvalidBucketNameException;
 import io.minio.errors.InvalidResponseException;
-import io.minio.errors.MinioException;
 import io.minio.errors.ServerException;
 import io.minio.errors.XmlParserException;
 import io.minio.http.Method;
@@ -53,7 +49,6 @@ public class MinIOClient {
 				minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
 			}
 		
-  		
   			
   			//create temporary file where project is located
 			Path projectPath = FileSystems.getDefault().getPath(projectDirectory + systemSepartor);
@@ -63,22 +58,18 @@ public class MinIOClient {
 			
 			InputStream targetStream = new FileInputStream(tempFile.toFile());
 
- 		    //RADIIII 
-			//String attName = String.valueOf(System.currentTimeMillis())+"-" + attachment.getName();
+
 			minioClient.putObject(
 					PutObjectArgs.builder().bucket(bucketName).object(attachment.getCreated()+"-"+attachment.getName()).stream(
  		    	    		targetStream, -1, 10485760)
  		    	        .contentType("application/pdf") //for now only PDF documents
  		    	        .build());
 
- 		    //delete file on local file system
-			//System.out.println(tempFile.toAbsolutePath().toString());
-			
-			tempFile.toFile().delete();
-		
-			//System.out.println("Rezultat brisanja: " + resDeletion);
+			//close stream so that temp file can be deleted
+			targetStream.close();
 
- 		     //get download URL of Attachment
+
+ 		    //get download URL of Attachment
 			String url =
              	    minioClient.getPresignedObjectUrl(
              	        GetPresignedObjectUrlArgs.builder()
@@ -88,6 +79,7 @@ public class MinIOClient {
              	            .expiry(7, TimeUnit.DAYS)
              	            .build());
             System.out.println("Url: " + url); 
+            
 			
 			if (url == null) return false;
              
@@ -103,14 +95,12 @@ public class MinIOClient {
 		
 		} catch (Exception e) {
          	e.printStackTrace();
+         	return false;
 
  		}
 
 		return true;
     }
-	
-	
-	
 	
 	
 
