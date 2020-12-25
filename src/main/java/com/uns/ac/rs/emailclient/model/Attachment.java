@@ -35,7 +35,6 @@ public class Attachment {
     @Column(name = "attachment_id", unique = true, nullable = false)
     private int id;
 
-
     @Lob
     @Column(name = "base_64_data", columnDefinition="LONGBLOB")
     private String  data;
@@ -45,6 +44,12 @@ public class Attachment {
 
     @Column(name = "name", unique = false, nullable = false)
     private String name;
+    
+    @Column(name = "url", unique = false, nullable = true, columnDefinition = "varchar(500)")
+    private String url;
+    
+    @Column(name = "created",  unique = false, nullable = true)
+    private String created;
 
     @ManyToOne()
     @JsonIgnore
@@ -70,6 +75,7 @@ public class Attachment {
 		    attachment.setData(base64Att);
 		    attachment.setName(att_name);
 		    attachment.setMime_type(mime_type.split("/")[1]);
+		    attachment.setCreated(String.valueOf(System.currentTimeMillis()));
 		    attachment.setMessage(message);
 		  
 			

@@ -1,6 +1,10 @@
-package com.uns.ac.rs.emailclient.controllers;
+package com.uns.ac.rs.emailclient.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -46,7 +50,8 @@ public class UserController {
 	@RequestMapping(value = "/send/email", consumes = {"multipart/form-data"}, method = RequestMethod.POST) 
 	public StringResponse sendEmail(@RequestParam("attachments") MultipartFile attachment, @ModelAttribute SendEmailRequest request) throws IOException, InvalidKeyException, ErrorResponseException, InsufficientDataException, InternalException, InvalidResponseException, NoSuchAlgorithmException, ServerException, XmlParserException, IllegalArgumentException {
 		
-		
+		//for now, MultipartFile attachment -> expected to be .pdf
+		    
 		StringResponse response = userControllerImpl.sendEmail(attachment, request);
 		
 		return response;

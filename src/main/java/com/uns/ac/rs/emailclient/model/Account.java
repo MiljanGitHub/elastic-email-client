@@ -58,6 +58,9 @@ public class Account {
 
     @Column(name = "display_name", unique = false, nullable = false)
     private String displayName;
+    
+    @Column(name = "bucket", unique = true, nullable = true)
+    private String bucket;
 
     @ManyToOne()
     @JsonIgnore

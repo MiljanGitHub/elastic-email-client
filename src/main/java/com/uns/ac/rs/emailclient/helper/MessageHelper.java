@@ -25,6 +25,7 @@ import com.uns.ac.rs.emailclient.model.Message;
 import com.uns.ac.rs.emailclient.model.User;
 import com.uns.ac.rs.emailclient.service.FolderService;
 import com.uns.ac.rs.emailclient.service.MessageService;
+import com.uns.ac.rs.emailclient.service.helper.MinIOClient;
 
 @Component
 public class MessageHelper {
@@ -38,7 +39,9 @@ public class MessageHelper {
 	@Autowired
 	private AttachmentHelper attachmentHelper;
 	
-	public Message generateMessage(List<MultipartFile> multiPartFiles, SendEmailRequest request, Account account, User user) {
+	
+	
+	public Message generateMessage( List<MultipartFile> multiPartFiles, SendEmailRequest request, Account account, User user) {
 		
 		Message newMessage = new Message();
 		
@@ -66,6 +69,8 @@ public class MessageHelper {
 		if (newMessage == null) return null;
 		
 		List<Attachment> attachments =  attachmentHelper.generateAttachments(multiPartFiles, newMessage);
+		
+		//boolean successfullySentToS3ObjectStorage = minioClient.writeToMinIO(attachments, account.getBucket());
 		
 		newMessage.setAttachments(attachments);
 		
@@ -105,7 +110,7 @@ public class MessageHelper {
         mailSender.setJavaMailProperties(props);
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         boolean hasAttachments = false;
-        if (newMessage.getAttachments().size() > 0) hasAttachments = true;
+        if (newMessage.getAttachments() != null && newMessage.getAttachments().size() > 0) hasAttachments = true;
         MimeMessageHelper helper = null;
         try {
             helper = new MimeMessageHelper(mimeMessage, hasAttachments);

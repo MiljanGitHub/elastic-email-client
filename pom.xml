@@ -88,6 +88,23 @@
 			<version>7.1.2</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
+		<dependency>
+    		<groupId>org.apache.tika</groupId>
+    		<artifactId>tika-core</artifactId>
+    		<version>1.25</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.tika/tika -->
+		<dependency>
+    		<groupId>org.apache.tika</groupId>
+    		<artifactId>tika</artifactId>
+    		<version>1.25</version>
+    		<type>pom</type>
+		</dependency>
+		
+		
+		
 	</dependencies>	
 
 	<build>
