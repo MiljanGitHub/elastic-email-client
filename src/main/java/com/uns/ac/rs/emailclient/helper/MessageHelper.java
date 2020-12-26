@@ -24,15 +24,10 @@ import com.uns.ac.rs.emailclient.model.Folder;
 import com.uns.ac.rs.emailclient.model.Message;
 import com.uns.ac.rs.emailclient.model.User;
 import com.uns.ac.rs.emailclient.service.FolderService;
-import com.uns.ac.rs.emailclient.service.MessageService;
-import com.uns.ac.rs.emailclient.service.helper.MinIOClient;
 
 @Component
 public class MessageHelper {
-	
-	@Autowired
-	private MessageService messageService;
-	
+
 	@Autowired
 	private FolderService folderService;
 	
@@ -64,13 +59,13 @@ public class MessageHelper {
 		newMessage.setContent(request.getContent());
 		newMessage.setSubject(request.getSubject());
 		
-		newMessage = messageService.save(newMessage);
+		//newMessage = messageService.save(newMessage);
 		
-		if (newMessage == null) return null;
+		//if (newMessage == null) return null;
 		
-		List<Attachment> attachments =  attachmentHelper.generateAttachments(multiPartFiles, newMessage);
+		List<Attachment> attachments = attachmentHelper.generateAttachments(multiPartFiles, newMessage);
 		
-		//boolean successfullySentToS3ObjectStorage = minioClient.writeToMinIO(attachments, account.getBucket());
+		if (attachments == null) return null;
 		
 		newMessage.setAttachments(attachments);
 		

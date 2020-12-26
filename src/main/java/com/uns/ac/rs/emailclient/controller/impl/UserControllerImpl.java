@@ -1,9 +1,6 @@
 package com.uns.ac.rs.emailclient.controller.impl;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -24,8 +21,8 @@ import com.uns.ac.rs.emailclient.model.Account;
 import com.uns.ac.rs.emailclient.model.Message;
 import com.uns.ac.rs.emailclient.model.User;
 import com.uns.ac.rs.emailclient.service.AccountService;
+import com.uns.ac.rs.emailclient.service.MessageService;
 import com.uns.ac.rs.emailclient.service.UserService;
-import com.uns.ac.rs.emailclient.service.helper.MinIOClient;
 
 import io.minio.errors.ErrorResponseException;
 import io.minio.errors.InsufficientDataException;
@@ -51,16 +48,8 @@ public class UserControllerImpl {
 	@Autowired 
 	private AccountService accountService;
 	
-
-	
-	
-    final static String endPoint = "http://26.192.233.126:9000";
-    final static String accessKey = "minioadmin";
-    final static String secretKey = "minioadmin";
-    final static String bucketName = "mybucket";
-    //final static String localFileFolder = "C:\\test\\files\\";
-
-	
+	@Autowired
+	private MessageService messageService;
 	
 	public LoginResponse login(LoginRequest request) {
 		
@@ -113,24 +102,12 @@ public class UserControllerImpl {
 		if (message == null) return new StringResponse(200, true, messageSource.getMessage("error.message", null, new Locale("en")));
 		
 		//send email
-		System.out.println(messageHelper == null);
 		sent = messageHelper.sendEmail(message, account);
 		if (!sent) return new StringResponse(200, true, messageSource.getMessage("error.email", null, new Locale("en")));
 		
-//		//place attachments, if any, to MinIO
-//		if (message.getAttachments().size() > 0) {
-//			
-//			
-//				
-//			boolean successfullySentToS3ObjectStorage = minioClient.writeToMinIO(tempFile, account.getBucket(), message);
-//				
-//			if (!successfullySentToS3ObjectStorage) return new StringResponse(200, true, messageSource.getMessage("error.s3", null, new Locale("en")));
-
-//		}
 	
-
-		
 		//save to database
+		message = messageService.save(message);
 		
 		
 		//save to index Elastic repository

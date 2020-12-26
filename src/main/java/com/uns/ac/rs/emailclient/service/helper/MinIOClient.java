@@ -10,11 +10,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.uns.ac.rs.emailclient.model.Attachment;
-import com.uns.ac.rs.emailclient.service.AttachmentService;
 
 import io.minio.BucketExistsArgs;
 import io.minio.GetPresignedObjectUrlArgs;
@@ -31,9 +29,6 @@ import io.minio.errors.XmlParserException;
 import io.minio.http.Method;
 
 public class MinIOClient {
-	
-	@Autowired
-	private AttachmentService attachmentService;
 	
 	public boolean writeToMinIO(Attachment attachment, MultipartFile mpf, String bucketName) {
 		String projectDirectory = System.getProperty("user.dir");
@@ -67,7 +62,9 @@ public class MinIOClient {
 
 			//close stream so that temp file can be deleted
 			targetStream.close();
-
+			
+			//delete temp file from project directory
+			Files.delete(tempFile);
 
  		    //get download URL of Attachment
 			String url =
@@ -78,13 +75,10 @@ public class MinIOClient {
              	            .object(attachment.getCreated()+"-"+attachment.getName())
              	            .expiry(7, TimeUnit.DAYS)
              	            .build());
-            System.out.println("Url: " + url); 
             
-			
 			if (url == null) return false;
              
 			attachment.setUrl(url);
-			attachmentService.save(attachment);
   		
 		} catch (InvalidKeyException | ErrorResponseException | IllegalArgumentException | InsufficientDataException
 				| InternalException | InvalidBucketNameException | InvalidResponseException | NoSuchAlgorithmException

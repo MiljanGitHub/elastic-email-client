@@ -46,7 +46,7 @@ public class SwaggerConfig {
 
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
-                .title("Spring Boot REST API - Garbage Collectors App")
+                .title("Spring Boot REST API - Email Client App")
                 .description("*")
                 .version("1.0.0")
                 .license("Apache License Version 2.0")

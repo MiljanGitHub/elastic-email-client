@@ -9,14 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.uns.ac.rs.emailclient.model.Attachment;
 import com.uns.ac.rs.emailclient.model.Message;
-import com.uns.ac.rs.emailclient.service.AttachmentService;
 import com.uns.ac.rs.emailclient.service.helper.MinIOClient;
 
 @Component
 public class AttachmentHelper {
-	
-	@Autowired
-	private AttachmentService attachmentService;
 	
 	@Autowired	
 	private MinIOClient minioClient;
@@ -32,7 +28,6 @@ public class AttachmentHelper {
 							                        	 if (successfullySentToS3ObjectStorage) return att;
 							                        	 else return null;
 							                         })
-							                         
 							                         .collect(Collectors.toList());
 		
 		if (attachments != null && attachments.size() > 0 ) {
@@ -40,8 +35,7 @@ public class AttachmentHelper {
 			
 			if (attachments.contains(null)) return null;
 			
-			System.out.println(attachments.get(0).getUrl());
-			attachments = attachmentService.saveAll(attachments);
+			//attachments = attachmentService.saveAll(attachments);
 			
 		}
 		
